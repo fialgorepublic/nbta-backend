@@ -1,0 +1,10 @@
+const create = require('./create')
+const ManagekycDoc = require('./manage-kyc-docs')
+const fetchById = require('./fetchById')
+const list  = require('./list')
+const deleteInvestor = require('./delete')
+const update = require('./update')
+const dashboard = require('./dashboard')
+const verified = require('./verified')
+const manageProfilePic = require('./manage-profile-pic')
+module.exports = { create, ManagekycDoc, fetchById, list, deleteInvestor, update, dashboard, verified, manageProfilePic }
