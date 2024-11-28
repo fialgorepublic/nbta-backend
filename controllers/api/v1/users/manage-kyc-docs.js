@@ -10,10 +10,11 @@ const ManageKycDoc = aysncMiddleware(async (req, res) => {
   if (!pictures || pictures.length === 0) {
     return errorResponse(res, 'Please upload at least one document');
   }
-
-  const kyc_pic_path = pictures['kyc_picture'][0]?.path
-
-  user.kyc_picture = kyc_pic_path;
+  
+  if (pictures['kyc_picture']) {
+    const kyc_pic_path = pictures['kyc_picture'][0]?.path
+    user.kyc_picture = kyc_pic_path;
+  }
 
   pictures['kycDocs'].forEach(file => {
     const { originalname, path } = file;
