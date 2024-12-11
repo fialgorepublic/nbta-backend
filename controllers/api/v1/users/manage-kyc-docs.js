@@ -4,7 +4,6 @@ const {aysncMiddleware} = require('../../../../middlewares/async')
 
 const ManageKycDoc = aysncMiddleware(async (req, res) => {
   const { currentUser: user, files: pictures } = req;
-
   if (!user) return errorResponse(res, 'User not found');
 
   if (!pictures || pictures.length === 0) {
@@ -12,18 +11,19 @@ const ManageKycDoc = aysncMiddleware(async (req, res) => {
   }
   
   if (pictures['kyc_picture']) {
-    const kyc_pic_path = pictures['kyc_picture'][0]?.path
+    let kyc_pic_path = pictures['kyc_picture'][0]?.path
     user.kyc_picture = kyc_pic_path;
   }
-
-  pictures['kycDocs'].forEach(file => {
-    const { originalname, path } = file;
-      user.kyc_status = 'InProgress';
-      addDocumentIfNotExists(user, originalname, path);
-    
-  });
+  if (pictures['kycDocs']) {
+    pictures['kycDocs'].forEach(file => {
+      const { originalname, path } = file;
+        user.kyc_status = 'InProgress';
+        addDocumentIfNotExists(user, originalname, path);
+    });
+  }
 
   await user.save();
+  user.kyc_docs =  user.kyc_docs.at(- 1)
   return successResponse(res, 'Kyc documents uploaded', user);
 });
 
