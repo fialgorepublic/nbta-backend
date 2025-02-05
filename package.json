@@ -1,8 +1,10 @@
 {
   "name": "nbta-backend",
   "version": "1.0.0",
+  "description": "Backend for NBTA",
   "main": "index.js",
   "scripts": {
+    "start": "NODE_ENV=production node --trace-warnings index.js",
     "start-dev": "nodemon --trace-warnings index.js",
     "start-prod": "NODE_ENV=production node --trace-warnings index.js",
     "seed-dev": "node db/seed.js",
@@ -11,7 +13,6 @@
   },
   "author": "Fahad Ishfaq",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
@@ -29,3 +30,4 @@
     "nodemon": "^3.1.7"
   }
 }
+
