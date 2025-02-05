@@ -41,17 +41,43 @@ If you need to update `npm`, you can make it using `npm`! Cool right? After runn
     $ cd PROJECT_TITLE
     $ npm install
 
+## Run Mongo.
+
+You can run mongo locally with the following:
+```
+docker run -d --name mongodb-container   -p 27017:27017   -e MONGO_INITDB_DATABASE=mydatabase   -e MONGO_INITDB_ROOT_USERNAME=root  -e MONGO_INITDB_ROOT_PASSWORD=secret  mongo
+```
+
 ## Configure app
 
-Create .env then edit it with your settings. You will need:
+Take the .env.example file and rename it to .env. Update the variables with your own values.
 
-- APP_PORT=
-- DB_BASE_URI=
-- DB_NAME=
-- APP_JWT_KEY=
+For developers, the default values are fine if you ran the above docker command.
 
 ## Create Admin User
-    $ npm run seed-dev
+This will create the admin user:
+
+**email:** admin@nbtecha.com
+**password:** ChangeThisPassword123!
+
+```
+npm run seed-dev
+```
+
 ## Running the project
 
-    $ npm run start-dev
+You should now be able to run the program locally with the following:
+
+```
+npm run start-dev
+```
+
+To run prod:
+
+```
+nopm run start-prod
+```
+
+## Docs
+
+Once the application is running locally, you can run see the docs [here](http://localhost:3001/docs/#/)

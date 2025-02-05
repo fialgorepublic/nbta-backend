@@ -14,8 +14,8 @@ const seedAdmin = async () => {
     user.first_name = 'Eric'
     user.last_name = 'Nbtecha'
     user.role = 'admin'
-    user.email = 'erica@nbtecha.com'
-    user.password = '11223344'
+    user.email = 'admin@nbtecha.com'
+    user.password = 'ChangeThisPassword123!'
     await user.save()
     console.log('==================Admin created===================')
   }

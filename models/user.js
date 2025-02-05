@@ -92,7 +92,7 @@ userSchema.methods.generateAuthToken = function () {
     {
       _id: this._id,
     },
-    process.env.APP_JWT_KEY,
+    process.env.JWT_SECRET_KEY,
     {
       expiresIn: maxAge,
     }

@@ -8,7 +8,7 @@ const ensureAuth = async (req, res, next) => {
   if (token) {
     decode = null
     try {
-      decode = await jwt.verify(token, process.env.APP_JWT_KEY)
+      decode = await jwt.verify(token, process.env.JWT_SECRET_KEY)
     }catch (error){
       return errorResponse(res, 'Invalid Authorization token')
     }
