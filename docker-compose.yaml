@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+  nbta-frontend:
+    image: nbta-frontend:latest
+    container_name: nbta-frontend
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - nbta-backend
+    environment:
+      - REACT_APP_API_URL=http://localhost:3001
+    networks:
+      - nbta-network
+
+  nbta-backend:
+    image: nbta-backend:latest
+    container_name: nbta-backend
+    restart: always
+    ports:
+      - "3001:3000"  # Map container's port 3000 to host port 3001
+    depends_on:
+      - mongodb
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/nbta-db
+    networks:
+      - nbta-network
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - nbta-network
+
+volumes:
+  mongo-data:
+
+networks:
+  nbta-network:
+    driver: bridge
