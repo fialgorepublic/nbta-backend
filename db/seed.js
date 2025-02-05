@@ -6,7 +6,7 @@ const {connectDB} = require('../utils/connection-manager')
 const seedAdmin = async () => {
 
   let userExist = await User.findOne({
-    email: 'erica@nbtecha.com',
+    email: 'admin@nbtecha.com',
   })
 
   if (!userExist) {
