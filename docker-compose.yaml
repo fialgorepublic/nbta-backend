@@ -10,7 +10,7 @@ services:
     depends_on:
       - nbta-backend
     environment:
-      - REACT_APP_API_URL=http://localhost:3001
+      - REACT_APP_API_URL=https://app.nbtecha.com/
     networks:
       - nbta-network
 
