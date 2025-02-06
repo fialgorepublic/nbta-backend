@@ -24,6 +24,8 @@ lib-cov
 coverage
 *.lcov
 
+.gitignore
+
 # nyc test coverage
 .nyc_output
 
