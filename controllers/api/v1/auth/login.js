@@ -11,10 +11,11 @@ const login = aysncMiddleware(async (req, res, next) => {
   if ( !user ) {
     return errorResponse(res, 'Invalid Email and Password')
   }
-
+/*
   if (user && user.role === 'investor' && platform === 'adminPanel') {
     return errorResponse(res, 'You are not allowed to login')
   }
+    */
   const valid = await bcrypt.compare(password, user.password)
 
   if (!valid) {
@@ -29,6 +30,7 @@ const login = aysncMiddleware(async (req, res, next) => {
     first_name: user.first_name,
     last_name: user.last_name,
     email: user.email,
+    role: user.role,
     token: user.authToken,
     kyc_status: user.kyc_status,
     balance: user.balance || 0,

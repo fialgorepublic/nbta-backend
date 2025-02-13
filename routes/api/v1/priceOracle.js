@@ -3,9 +3,11 @@ const router = express.Router();
 const PriceOracle = require('../../../models/priceOracle');
 const ensureAuth = require('../../../middlewares/ensure-auth'); // Assuming you have auth middleware
 
+const { authorizeRole } = require('../../../middlewares/roleAuth');
+
 
 // Get price history
-router.get('/history', ensureAuth, async (req, res) => {
+router.get('/history', ensureAuth, authorizeRole, async (req, res) => {
   try {
     const history = await PriceOracle.find()
       .sort({ createdAt: -1 })
@@ -19,7 +21,7 @@ router.get('/history', ensureAuth, async (req, res) => {
 });
 
 // Update price
-router.post('/update', ensureAuth, async (req, res) => {
+router.post('/update', ensureAuth, authorizeRole, async (req, res) => {
   try {
     const { price } = req.body;
     
