@@ -95,6 +95,7 @@ userSchema.methods.generateAuthToken = function () {
     {
       _id: this._id,
       role: this.role,
+      public_wallet_address: this.public_wallet_address,
     },
     process.env.JWT_SECRET_KEY,
     {
