@@ -35,9 +35,12 @@ const userSchema = new Schema(
     authToken: {
       type: String,
     },
+    public_wallet_address: {
+      type: String,
+    },
     role: {
       type: String,
-      enum: ["admin", "investor"],
+      enum: ["admin", "investor", "backoffice"],
       message: "{VALUE} is not valid role",
     },
     balance: {

@@ -4,7 +4,9 @@ const {aysncMiddleware} = require('../../../../middlewares/async')
 
 const create = aysncMiddleware( async (req, res, next) => {
   
-  const {first_name, last_name, email, password} = req.body
+  const {first_name, last_name, email, public_wallet_address, password} = req.body
+
+  console.log("RECOFD", first_name, public_wallet_address, password)
 
   const user = await User.findOne({email: email})
 
@@ -12,7 +14,7 @@ const create = aysncMiddleware( async (req, res, next) => {
     return errorResponse(res, 'User already Exist')
   }
   
-  const newUser = await User.create({first_name, last_name, email, password, role: 'investor'})
+  const newUser = await User.create({first_name, last_name, email, public_wallet_address, password, role: 'investor'})
   return successResponse(res, 'Investor create successfully', newUser)
 
 
