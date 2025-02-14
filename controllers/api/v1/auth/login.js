@@ -34,6 +34,7 @@ const login = aysncMiddleware(async (req, res, next) => {
     token: user.authToken,
     kyc_status: user.kyc_status,
     balance: user.balance || 0,
+    public_wallet_address: user.public_wallet_address || null,
     profile_picture: user.profile_picture || null,
     kyc_picture: user.kyc_picture || null,
     kyc_docs: user.kyc_docs
