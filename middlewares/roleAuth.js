@@ -10,9 +10,7 @@ const ROLES = {
   ];
   
   const INVESTOR_ROUTES = [
-    '/api/v1/portfolio',
-    '/api/v1/investments',
-    '/api/v1/transactions'
+    
   ];
   
   const BACKOFFICE_ROUTES = [
@@ -22,9 +20,8 @@ const ROLES = {
   ];
   
   const ADMIN_ONLY_ROUTES = [
-    '/api/v1/admin/settings',
-    '/api/v1/admin/users',
-    '/api/v1/admin/logs'
+    '/api/v1/priceOracle/history',
+    '/api/v1/priceOracle/update'
   ];
   
   // middleware/roleAuth.js
