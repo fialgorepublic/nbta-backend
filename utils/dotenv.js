@@ -4,16 +4,16 @@ const dotenv = require('dotenv');
 async function loadConfig() {
   console.log('Starting configuration loading process...');
 
-  let nodeEnv = process.env.NODE_ENV || 'development';
-  console.log(`Detected environment: ${nodeEnv}`);
+  let appenv = process.env.APP_ENV || 'local';
+  console.log(`Detected environment: ${appenv}`);  
 
-  if (nodeEnv === 'development') {
+  if (appenv === 'local') {
     dotenv.config({ path: '.env' });
     console.log('Successfully loaded configuration from .env file');
-  } else if (nodeEnv === 'production') {
+  } else  {
     try {
-      const secretsManager = new AWS.SecretsManager({ region: process.env.AWS_REGION || 'us-east-1' });
-      const response = await secretsManager.getSecretValue({ SecretId: process.env.SECRET_NAME || 'myapp/production' }).promise();
+      const secretsManager = new AWS.SecretsManager({ region: process.env.AWS_REGION || 'us-west-2' });
+      const response = await secretsManager.getSecretValue({ SecretId: process.env.SECRET_NAME || (appenv + '/nbta_ml/secrets') }).promise();
       Object.assign(process.env, JSON.parse(response.SecretString));
     } catch (error) {
       console.error('Error loading secrets from AWS:', error);
