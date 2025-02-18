@@ -4,7 +4,7 @@
   "description": "Backend for NBTA",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "NODE_ENV=production node index.js",
     "dev": "nodemon index.js --watch routes --watch models --watch middleware",
     "start-prod": "NODE_ENV=production node --trace-warnings index.js",
     "seed-dev": "node db/seed.js",
@@ -14,6 +14,7 @@
   "author": "Fahad Ishfaq",
   "license": "ISC",
   "dependencies": {
+    "aws-sdk": "^2.1692.0",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
