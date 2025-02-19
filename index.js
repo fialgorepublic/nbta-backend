@@ -1,4 +1,5 @@
 const loadConfig = require('./utils/dotenv.js'); // Import configuration loader
+
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
@@ -10,7 +11,11 @@ const swaggerDocs = require('./swagger');
 
 const app = express();
 
+
+
 loadConfig().then(() => {
+  const logger = require('./utils/Logger.js')
+  logger.info("ALI!!!!!!!!!!! We made it ali!")
   app.use(express.urlencoded({ extended: true, limit: '50mb', parameterLimit: 50000 }));
   app.use(express.json({ limit: '50mb' }));
   app.use(morgan('common'));
