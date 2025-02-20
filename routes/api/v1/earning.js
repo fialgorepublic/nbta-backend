@@ -2,6 +2,7 @@ const express = require('express')
 const app = express.Router()
 const ensureAuth = require('../../../middlewares/ensure-auth')
 const {create, allEarnings} = require('../../../controllers/api/v1/manage_earnings')
+const { authorizeRole } = require('../../../middlewares/roleAuth');
 
 /**
  * @swagger
@@ -69,7 +70,7 @@ const {create, allEarnings} = require('../../../controllers/api/v1/manage_earnin
  *       500:
  *         description: Internal server error
  */
-app.post('/create', create)
+app.post('/create', ensureAuth, authorizeRole, create)
 
 /**
  * @swagger
@@ -129,6 +130,6 @@ app.post('/create', create)
  *       500:
  *         description: Internal server error
  */
-app.get('/list',ensureAuth,  allEarnings)
+app.get('/list', ensureAuth, authorizeRole,  allEarnings)
 
 module.exports = app

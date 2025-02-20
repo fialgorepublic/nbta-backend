@@ -4,6 +4,7 @@ const ensureAuth = require('../../../middlewares/ensure-auth')
 const app = express.Router()
 const upload = require('../../../middlewares/multer')
 
+const { authorizeRole } = require('../../../middlewares/roleAuth');
 /**
  * @swagger
  * /users/all-investors:
@@ -48,7 +49,7 @@ const upload = require('../../../middlewares/multer')
  *       500:
  *         description: Internal server error
  */
-app.get('/all-investors', list)
+app.get('/all-investors', ensureAuth, authorizeRole, list)
 
 /**
  * @swagger
@@ -102,7 +103,7 @@ app.get('/all-investors', list)
  *       500:
  *         description: Internal server error
  */
-app.get('/investors-records', dashboard)
+app.get('/investors-records', ensureAuth, authorizeRole, dashboard)
 
 /**
  * @swagger
@@ -188,7 +189,7 @@ app.get('/investors-records', dashboard)
  *         description: Internal server error
  */
 
-app.get('/verify-investors', verified)
+app.get('/verify-investors', ensureAuth, authorizeRole, verified)
 
 /**
  * @swagger
@@ -270,7 +271,7 @@ app.get('/verify-investors', verified)
  *       500:
  *         description: Internal server error
  */
-app.get('/:id', fetchById)
+app.get('/:id', ensureAuth, authorizeRole, fetchById)
 
 /**
  * @swagger
@@ -352,7 +353,7 @@ app.get('/:id', fetchById)
  *       500:
  *         description: Internal server error
  */
-app.delete('/:id/delete', deleteInvestor)
+app.delete('/:id/delete', ensureAuth, authorizeRole, deleteInvestor)
 
 /**
  * @swagger
@@ -462,7 +463,7 @@ app.delete('/:id/delete', deleteInvestor)
  *       500:
  *         description: Internal server error
  */
-app.put('/:id/update', update)
+app.put('/:id/update', ensureAuth, authorizeRole, update)
 
 /**
  * @swagger
@@ -523,7 +524,7 @@ app.put('/:id/update', update)
  *       500:
  *         description: Internal server error
  */
-app.put('/upload-picture', ensureAuth, upload.single('profile_picture'), manageProfilePic)
+app.put('/upload-picture', ensureAuth, authorizeRole, upload.single('profile_picture'), manageProfilePic)
 
 /**
  * @swagger
@@ -595,7 +596,7 @@ app.put('/upload-picture', ensureAuth, upload.single('profile_picture'), manageP
  *       500:
  *         description: Internal server error
  */
-app.post('/register', create)
+app.post('/register', ensureAuth, authorizeRole, create)
 
 /**
  * @swagger
@@ -679,7 +680,7 @@ app.post('/register', create)
  *       500:
  *         description: Internal server error
  */
-app.post('/kyc-documents', ensureAuth, upload.fields([
+app.post('/kyc-documents', ensureAuth, authorizeRole, upload.fields([
   { name: 'kyc_picture', maxCount: 1 },
   { name: 'kycDocs', maxCount: 6 }
 ]), ManagekycDoc)

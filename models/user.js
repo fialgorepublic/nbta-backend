@@ -1,7 +1,10 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const jwt = require("jsonwebtoken");
+const fs = require('fs')
 const { encryptPassword } = require("../utils/password");
+// we will save keys on aws secret keymanager and read from there
+const privateKey = fs.readFileSync("keys/private.pem", "utf8");
 
 const userSchema = new Schema(
   {
@@ -97,8 +100,9 @@ userSchema.methods.generateAuthToken = function () {
       role: this.role,
       public_wallet_address: this.public_wallet_address,
     },
-    process.env.JWT_SECRET_KEY,
+    privateKey,
     {
+      algorithm: "RS256",
       expiresIn: maxAge,
     }
   );

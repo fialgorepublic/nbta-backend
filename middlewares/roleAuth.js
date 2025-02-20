@@ -10,7 +10,10 @@ const ROLES = {
   ];
   
   const INVESTOR_ROUTES = [
-    
+    // INVESTORS_ROUTES ADDED //
+    '/kyc-documents',
+    '/list',
+    '/upload-picture'
   ];
   
   const BACKOFFICE_ROUTES = [
@@ -20,8 +23,21 @@ const ROLES = {
   ];
   
   const ADMIN_ONLY_ROUTES = [
-    '/api/v1/priceOracle/history',
-    '/api/v1/priceOracle/update'
+    '/history',
+    '/update',
+
+    // New ADMIN_ONLY_ROUTES ADDED //
+
+    '/all-investors',
+    '/register',
+    '/investors-records',
+    '/:id',
+    ':id/delete',
+    '/:id/update',
+    '/verify-investors',
+    '/list',
+    '/investments',
+    '/earnings/create'
   ];
   
   // middleware/roleAuth.js
@@ -32,9 +48,9 @@ const ROLES = {
     if (PUBLIC_ROUTES.includes(req.path)) {
       return next();
     }
-  
+
     const userRole = req.currentUser?.role;
-  
+
     if (!userRole) {
       return errorResponse(res, 'Role not found in user data');
     }

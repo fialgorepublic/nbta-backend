@@ -1,8 +1,12 @@
 const jwt = require('jsonwebtoken')
 const User = require('../models/user')
 const {errorResponse} = require('../utils/response')
+const fs = require('fs')
+const publicKey = fs.readFileSync("keys/public.pem", "utf8");
 
 const ensureAuth = async (req, res, next) => {
+
+
   token = req.header('Authorization')
 
   console.log("ENSURING AUTH 1")
@@ -10,7 +14,7 @@ const ensureAuth = async (req, res, next) => {
     // console.log("TOKEN:" + token)
     decode = null
     try {
-      decode = await jwt.verify(token, process.env.JWT_SECRET_KEY)
+      decode = await jwt.verify(token, publicKey, {algorithms: 'RS256'})
     }catch (error){
       console.log("Invalid Authorization token decode")
       return errorResponse(res, 'Invalid Authorization token')
